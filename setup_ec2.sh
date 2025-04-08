@@ -36,12 +36,34 @@ echo "Adding ec2-user to the docker group..."
 sudo usermod -a -G docker ec2-user
 echo "User 'ec2-user' added to 'docker' group. Log out and log back in for changes to take effect."
 
+echo "Installing Docker Compose manually..."
 
-echo "Installing Docker Compose plugin..."
-sudo yum install docker-compose-plugin -y
-echo "Docker Compose plugin installed."
+DOCKER_COMPOSE_VERSION="v2.26.1"
 
+DOCKER_CONFIG=${DOCKER_CONFIG:-/usr/local/lib/docker}
+INSTALL_DIR="$DOCKER_CONFIG/cli-plugins"
+INSTALL_PATH="$INSTALL_DIR/docker-compose"
+
+echo "Creating directory $INSTALL_DIR..."
+sudo mkdir -p "$INSTALL_DIR"
+
+# Download the Docker Compose binary
+echo "Downloading Docker Compose version ${DOCKER_COMPOSE_VERSION}..."
+sudo curl -SL "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-linux-x86_64" -o "$INSTALL_PATH"
+
+echo "Making Docker Compose binary executable..."
+sudo chmod +x "$INSTALL_PATH"
+
+echo "Docker Compose installed manually to $INSTALL_PATH."
+
+# Verify installation
+echo "Verifying Docker Compose installation..."
 docker compose version
+if [ $? -ne 0 ]; then
+    echo "Docker Compose installation verification failed. Please check the steps."
+    exit 1
+fi
+echo "Docker Compose verification successful."
 
 echo "Cloning repository from $REPO_URL..."
 cd /home/ec2-user
@@ -56,8 +78,8 @@ fi
 echo "Changing directory to $REPO_DIR..."
 cd "/home/ec2-user/$REPO_DIR"
 
-docker-compose build --no-cache
-docker-compose up -d
+sudo docker compose build --no-cache
+sudo docker compose up -d
 
 # --- Script End ---
 echo "---------------------------------------------------------------------"
