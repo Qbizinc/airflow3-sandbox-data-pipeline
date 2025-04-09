@@ -78,9 +78,6 @@ fi
 echo "Changing directory to $REPO_DIR..."
 cd "/home/ec2-user/$REPO_DIR"
 
-sudo docker compose build --no-cache
-sudo docker compose up -d
-
 # --- Script End ---
 echo "---------------------------------------------------------------------"
 echo "Setup script finished!"
