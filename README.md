@@ -27,7 +27,7 @@ sudo docker compose up airflow-init
 sudo docker compose up -d
 ```
 
-IMPORTANT: When launching an EC2 instance you might have to change the commented lines to an elastic/public URL
+IMPORTANT: When launching an EC2 instance you might have to change the lines to an elastic/public URL
 
 ```yaml
 AIRFLOW__WEBSERVER__BASE_URL: http://airflow-api-server:8080
