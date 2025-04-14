@@ -7,7 +7,7 @@ from airflow.models.dag import DAG
 from airflow.providers.standard.triggers.file import FileDeleteTrigger
 from airflow.sdk import Asset, AssetWatcher, chain
 
-file_path = "/include/test/test1.csv"
+file_path = "include/test/test1.csv"
 
 trigger = FileDeleteTrigger(filepath=file_path)
 asset = Asset("include_test", watchers=[AssetWatcher(name="include_test_watcher", trigger=trigger)])

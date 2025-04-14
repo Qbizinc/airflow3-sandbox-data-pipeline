@@ -1,3 +1,4 @@
+asyncpg
 xgboost
 lightgbm
 scikit-learn

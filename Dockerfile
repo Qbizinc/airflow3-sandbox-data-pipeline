@@ -1,5 +1,5 @@
 # Use the same base image defined in your .env file
-FROM ${AIRFLOW_IMAGE_NAME:-apache/airflow:3.0.0.rc1.post4-python3.12}
+FROM ${AIRFLOW_IMAGE_NAME:-apache/airflow:3.0.0rc2-python3.12}
 
 # Example of installing OS-level dependencies if needed (uncomment/modify)
 # USER root
